@@ -641,14 +641,28 @@
       let itemsToShow = 15;  // Show the first 15 photos initially
       let incrementBy = 5;  // Show 5 more photos each time the "Load More" button is clicked
 
-      $('.col').hide();
-      $('.col:lt(' + itemsToShow + ')').show();
+      const showInitialPhotos = () => {
+        $('.col').hide();
+        $('.col:lt(' + itemsToShow + ')').show();
+      };
+
+      // Show initial set of photos
+      showInitialPhotos();
 
       $('#load-more-button').click(function () {
         itemsToShow += incrementBy;
         $('.col:lt(' + itemsToShow + ')').show();
       });
+
+      // Add click event listener to "Povratak na vrh" button
+      $('.btn-warning').click(function (e) {
+        e.preventDefault(); // Prevent default scroll-to-top behavior
+        itemsToShow = 15; // Reset to initial value
+        showInitialPhotos(); // Hide extra photos and show only the initial set
+        $('html, body').animate({ scrollTop: 0 }, 'fast'); // Scroll to the top of the page
+      });
     });
+
   </script>
 
 </body>
