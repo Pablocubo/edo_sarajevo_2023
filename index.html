@@ -124,7 +124,8 @@
           <div class="col">
             <div class="card shadow-sm">
               <div class="card shadow-sm">
-                <img src="images/01.png" alt="Your Image Description" class="hover-grow" width="auto" height="225">
+                <img id="myImage" src="images/01.png" Your Image Description" class="hover-grow" width="auto"
+                  height="225">
               </div>
 
               <div class="card-body">
@@ -633,28 +634,106 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function () {
-      let itemsToShow = 15;  // Show the first 15 photos initially
-      let incrementBy = 5;  // Show 5 more photos each time the "Load More" button is clicked
+      // Initialize variables
+      let itemsToShow = 15;
+      let incrementBy = 5;
+      let currentImageIndex = null;
 
+      // Add a blur overlay to the body
+      $('body').append('<div id="blur-overlay"></div>');
+      $('#blur-overlay').css({
+        'display': 'none',
+        'position': 'fixed',
+        'width': '100vw',
+        'height': '100vh',
+        'top': '0',
+        'left': '0',
+        'background': 'rgba(0, 0, 0, 0.5)',
+        'backdrop-filter': 'blur(5px)',
+        'z-index': '998'
+      });
+
+      // Functions
       const showInitialPhotos = () => {
         $('.col').hide();
         $('.col:lt(' + itemsToShow + ')').show();
       };
 
-      // Show initial set of photos
+      function makeFullscreen(image) {
+        resetImage($('.fullscreen')); // Reset any other full-screen images
+        image.addClass('fullscreen');
+        image.css({
+          'width': '90vw',
+          'height': '90vh',
+          'object-fit': 'contain',
+          'position': 'fixed',
+          'top': '5vh',
+          'left': '5vw',
+          'z-index': '999',
+          'padding': '20px'
+        });
+        $('#blur-overlay').show(); // Show blur overlay
+        currentImageIndex = $('.hover-grow').index(image);
+      }
+
+      function resetImage(image) {
+        image.removeClass('fullscreen');
+        image.css({
+          'width': '100%',
+          'height': '225px',
+          'object-fit': 'cover',
+          'position': 'static',
+          'z-index': 'auto'
+        });
+        $('#blur-overlay').hide(); // Hide blur overlay
+        currentImageIndex = null;
+      }
+
+      function navigateImage(direction) {
+        if (currentImageIndex !== null) {
+          const images = $('.hover-grow');
+          const newIndex = currentImageIndex + direction;
+          if (newIndex >= 0 && newIndex < images.length) {
+            makeFullscreen($(images[newIndex]));
+          }
+        }
+      }
+
+      // Initial setup
       showInitialPhotos();
 
+      // Event listeners
       $('#load-more-button').click(function () {
         itemsToShow += incrementBy;
         $('.col:lt(' + itemsToShow + ')').show();
       });
 
-      // Add click event listener to "Povratak na vrh" button
       $('.btn-warning').click(function (e) {
-        e.preventDefault(); // Prevent default scroll-to-top behavior
-        itemsToShow = 15; // Reset to initial value
-        showInitialPhotos(); // Hide extra photos and show only the initial set
-        $('html, body').animate({ scrollTop: 0 }, 'fast'); // Scroll to the top of the page
+        e.preventDefault();
+        itemsToShow = 15;
+        showInitialPhotos();
+        $('html, body').animate({ scrollTop: 0 }, 'fast');
+      });
+
+      $('.hover-grow').click(function () {
+        const image = $(this);
+        if (!image.hasClass('fullscreen')) {
+          makeFullscreen(image);
+        } else {
+          resetImage(image);
+        }
+      });
+
+      $(document).keydown(function (e) {
+        if (e.key === "Escape") {
+          resetImage($('.fullscreen'));
+        }
+        if (e.key === "ArrowRight") {
+          navigateImage(1);
+        }
+        if (e.key === "ArrowLeft") {
+          navigateImage(-1);
+        }
       });
     });
 
