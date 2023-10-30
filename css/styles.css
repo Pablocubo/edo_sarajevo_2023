@@ -23,3 +23,11 @@
 .facebook-icon {
     color: rgb(13, 110, 253);
 }
+
+.hover-grow {
+    transition: transform 0.3s ease;
+}
+
+.hover-grow:hover {
+    transform: scale(1.1);
+}
