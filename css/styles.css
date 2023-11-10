@@ -1,11 +1,3 @@
-.hover-grow {
-    transition: transform 0.3s ease;
-}
-
-.hover-grow:hover {
-    transform: scale(1.1);
-}
-
 .album py-5 bg-light {
     width: 300px;
     height: 100px;
@@ -30,4 +22,40 @@
 /* Facebook Icon */
 .facebook-icon {
     color: rgb(13, 110, 253);
+}
+
+.btn-email {
+    background-color: #ffc107;
+    /* This is typically the background color for .btn-warning */
+    border-color: #ffc107;
+    /* Same for the border */
+    color: #212529;
+    /* Text color for contrast */
+    /* Add other styles from .btn-warning as needed */
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    /* Example transition */
+    /* Ensure you don't include styles that may cause functionality issues */
+    btn my-2 pointer-events: auto !important;
+}
+
+.custom-card {
+    height: 380px;
+    /* Adjust the height as needed */
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-card .carousel {
+    flex-grow: 2;
+    /* Adjust proportion as needed */
+}
+
+.custom-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 20px;
+    /* Reduce bottom padding to lift content */
+    align-items: center;
+    /* Center content vertically */
 }

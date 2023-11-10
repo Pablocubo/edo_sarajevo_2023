@@ -18,4 +18,6 @@ showMoreButton.addEventListener('click', function () {
     } else {
         showMoreButton.innerText = 'Show More';
     }
+
+
 });
