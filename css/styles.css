@@ -1,6 +1,5 @@
-.album py-5 bg-light {
-    width: 300px;
-    height: 100px;
+/* General Styles */
+.album.py-5.bg-light {
     overflow: hidden;
 }
 
@@ -8,10 +7,9 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    /* Enable scrollbars */
+    /* Enable scrollbars if content overflows */
 }
 
-/* Social Media Icons */
 .social-icon {
     font-size: 24px;
     margin: 0 10px;
@@ -19,43 +17,56 @@
     /* Default color */
 }
 
-/* Facebook Icon */
 .facebook-icon {
     color: rgb(13, 110, 253);
 }
 
 .btn-email {
     background-color: #ffc107;
-    /* This is typically the background color for .btn-warning */
     border-color: #ffc107;
-    /* Same for the border */
     color: #212529;
-    /* Text color for contrast */
-    /* Add other styles from .btn-warning as needed */
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    /* Example transition */
-    /* Ensure you don't include styles that may cause functionality issues */
-    btn my-2 pointer-events: auto !important;
 }
 
+/* Custom Card Styles */
 .custom-card {
-    height: 380px;
-    /* Adjust the height as needed */
     display: flex;
     flex-direction: column;
+    /* Allow the card to grow in height based on content */
+    min-height: 380px;
+    /* Minimum height */
 }
 
 .custom-card .carousel {
     flex-grow: 2;
-    /* Adjust proportion as needed */
 }
 
 .custom-card .card-body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-bottom: 20px;
-    /* Reduce bottom padding to lift content */
     align-items: center;
-    /* Center content vertically */
+    padding-bottom: 20px;
+}
+
+/* Responsive Design Adjustments */
+@media (max-width: 768px) {
+
+    .album.py-5.bg-light,
+    .custom-card {
+        width: 100%;
+        /* Full width on small screens */
+        min-height: auto;
+        /* Allow height to adjust based on content */
+    }
+
+    .social-icon {
+        font-size: 20px;
+        /* Slightly smaller icons on small screens */
+    }
+
+    .btn-email {
+        padding: 5px 10px;
+        /* Adjust padding for smaller buttons */
+    }
 }
